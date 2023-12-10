@@ -90,7 +90,7 @@ def analyze_and_plot(X_test_scaled_list, model_filename, scaler_filename):
     model = load(model_filename)
     scaler = load(scaler_filename)
 
-    api_key = "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"
+    api_key = ""
     db_path = "snippets-dev.db"
     code_snippets = extract_snippets_from_db(db_path)
 
