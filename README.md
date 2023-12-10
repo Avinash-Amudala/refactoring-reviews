@@ -32,7 +32,7 @@ In main.py, The code snippet combined_df = pd.concat([load_data('OnlyNonTrivial_
 1. **Clone the Repository**
    Clone the project repository to your local machine using Git:
    ```
-   git clone [Repository URL]
+   git clone https://github.com/Avinash-Amudala/refactoring-reviews.git
    ```
 
 2. **Install Dependencies**
