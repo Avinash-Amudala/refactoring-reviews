@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results</title>
+    <style>
+        .data {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .data td, .data th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        .data tr:nth-child(even){background-color: #f2f2f2;}
+        .data tr:hover {background-color: #ddd;}
+        .data th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #04AA6D;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<h1>Analysis Results</h1>
+<div id="results"></div>
+<img id="resultGraph" src="/static/confusion_matrix.png" alt="Result Graph">
+
+<script>
+    function updateResults() {
+        fetch('/analysis_results')
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'complete') {
+                    document.getElementById('results').innerHTML = data.results;
+                    let graphImage = document.getElementById('resultGraph');
+                    if (data.graph_path) {
+                        graphImage.src = data.graph_path + '?t=' + new Date().getTime(); // Adding a timestamp to avoid caching issues
+                        graphImage.hidden = false;
+                    }
+                } else {
+                    setTimeout(updateResults, 5000); // Poll every 5 seconds
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+    updateResults();
+</script>
+</body>
+</html>
